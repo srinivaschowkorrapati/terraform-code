@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "903492c2-0128-478f-b44e-5da9af9167f0",
+		"name": "PegaCreateCustomer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd67efe4-9b98-4c56-af77-72925b840d39",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ec9013fc-586a-44b0-8aa7-b92a88d934da",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Pega Create Customer\\\")\";\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "J$oscar1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Js_Oscar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:cre=\"http://stevux1219/Js_B2B_CustomerMgmt_Customer/provider/createCustomer\" xmlns:jsc=\"http://www.sainsburys.co.uk/eai/canonical/uvc/JsCustomers\">\r\n<soap:Header/>\r\n<soap:Body>\r\n<cre:createCustomerDetails>\r\n<createCustomerRequest>\r\n<createRequest>\r\n<customers>\r\n<!--Zero or more repetitions:-->\r\n<jsc:customer>\r\n<jsc:customerId>?</jsc:customerId>\r\n<jsc:primaryAddressId>12345@gmail.com</jsc:primaryAddressId>\r\n<jsc:firstName>helloindia</jsc:firstName>\r\n<jsc:middleName>?</jsc:middleName>\r\n<jsc:lastName>testcust</jsc:lastName>\r\n<jsc:gender>?</jsc:gender>\r\n<jsc:title>?</jsc:title>\r\n<jsc:titleSuffix>?</jsc:titleSuffix>\r\n<jsc:primaryEmailAddress>?</jsc:primaryEmailAddress>\r\n<jsc:primaryEmailAddressId>?</jsc:primaryEmailAddressId>\r\n<jsc:prefCommChannel>?</jsc:prefCommChannel>\r\n<jsc:isEmployee>?</jsc:isEmployee>\r\n<jsc:status>?</jsc:status>\r\n<jsc:workPhoneNum>?</jsc:workPhoneNum>\r\n<jsc:homePhoneNum>?</jsc:homePhoneNum>                     <!--Optional:-->                     <jsc:mobilePhoneNum>?</jsc:mobilePhoneNum>                     <!--Optional:-->                     <jsc:preferredPhoneType>?</jsc:preferredPhoneType>                     <!--Optional:-->                     <jsc:jobTitle>?</jsc:jobTitle>                     <!--Optional:-->                     <jsc:isDeceased>?</jsc:isDeceased>                     <!--Optional:-->                     <jsc:deceaseDate>?</jsc:deceaseDate>                     <!--Optional:-->                     <jsc:shoppingPreference>?</jsc:shoppingPreference>                     <!--Optional:-->                     <jsc:acceptSubstitute>?</jsc:acceptSubstitute>                     <!--Optional:-->                     <jsc:isCustomer>?</jsc:isCustomer>                     <!--Optional:-->                     <jsc:custSource>?</jsc:custSource>                     <!--Optional:-->                     <jsc:edwId>?</jsc:edwId>                     <!--Optional:-->                     <jsc:edwCustStatus>?</jsc:edwCustStatus>                     <!--Optional:-->                     <jsc:createdDate>?</jsc:createdDate>                     <!--Optional:-->                     <jsc:createdBy>?</jsc:createdBy>                     <!--Optional:-->                     <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>                     <!--Optional:-->                     <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>                     <!--Optional:-->                     <jsc:custStatusCode>?</jsc:custStatusCode>                     <!--Optional:-->                     <jsc:custStatusMsg>?</jsc:custStatusMsg>                     <!--Optional:-->                     <jsc:accounts>                        <!--Zero or more repetitions:-->                        <jsc:account>                           <!--Optional:-->                           <jsc:accountId>?</jsc:accountId>                           <!--Optional:-->                           <jsc:customerId>?</jsc:customerId>                           <!--Optional:-->                           <jsc:custAccMapId>?</jsc:custAccMapId>                           <!--Optional:-->                           <jsc:accountType>?</jsc:accountType>                           <!--Optional:-->                           <jsc:accountNum>?</jsc:accountNum>                           <!--Optional:-->                           <jsc:accountNumTrim>?</jsc:accountNumTrim>                           <!--Optional:-->                           <jsc:isActive>?</jsc:isActive>                           <!--Optional:-->                           <jsc:createdDate>?</jsc:createdDate>                           <!--Optional:-->                           <jsc:createdBy>?</jsc:createdBy>                           <!--Optional:-->                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>                           <!--Optional:-->                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>                        </jsc:account>                     </jsc:accounts>                     <!--Optional:-->                     <jsc:addresses>                        <!--Zero or more repetitions:-->                        <jsc:address>                           <!--Optional:-->                           <jsc:addressId>?</jsc:addressId>                           <!--Optional:-->                           <jsc:customerId>?</jsc:customerId>                           <!--Optional:-->                           <jsc:addressType>?</jsc:addressType>                           <!--Optional:-->                           <jsc:flatNum>?</jsc:flatNum>                           <!--Optional:-->                           <jsc:houseNumber>?</jsc:houseNumber>                           <!--Optional:-->                           <jsc:houseName>?</jsc:houseName>                           <!--Optional:-->                           <jsc:streetaddress>?</jsc:streetaddress>                           <!--Optional:-->                           <jsc:postCode>?</jsc:postCode>                           <!--Optional:-->                           <jsc:city>?</jsc:city>                           <!--Optional:-->                           <jsc:county>?</jsc:county>                           <!--Optional:-->                           <jsc:country>?</jsc:country>                           <!--Optional:-->                           <jsc:addressComments>?</jsc:addressComments>                           <!--Optional:-->                           <jsc:organisationName>?</jsc:organisationName>                           <!--Optional:-->                           <jsc:departmentName>?</jsc:departmentName>                           <!--Optional:-->                           <jsc:poBoxNumber>?</jsc:poBoxNumber>                           <!--Optional:-->                           <jsc:subStreet>?</jsc:subStreet>                           <!--Optional:-->                           <jsc:subLocality>?</jsc:subLocality>                           <!--Optional:-->                           <jsc:locality>?</jsc:locality>                           <!--Optional:-->                           <jsc:isPrimary>?</jsc:isPrimary>                           <!--Optional:-->                           <jsc:createdDate>?</jsc:createdDate>                           <!--Optional:-->                           <jsc:createdBy>?</jsc:createdBy>                           <!--Optional:-->                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>                           <!--Optional:-->                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>                        </jsc:address>                     </jsc:addresses>                     <!--Optional:-->                     <jsc:emailAddresses>                        <!--Zero or more repetitions:-->                        <jsc:emailAddresses>                           <!--Optional:-->                           <jsc:emailAddressId>?</jsc:emailAddressId>                           <!--Optional:-->                           <jsc:customerId>?</jsc:customerId>                           <!--Optional:-->                           <jsc:emailAddress>?</jsc:emailAddress>                           <!--Optional:-->                           <jsc:edwId>?</jsc:edwId>                           <!--Optional:-->                           <jsc:createdDate>?</jsc:createdDate>                           <!--Optional:-->                           <jsc:createdBy>?</jsc:createdBy>                           <!--Optional:-->                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>                           <!--Optional:-->                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>                        </jsc:emailAddresses>                     </jsc:emailAddresses>                     <!--Optional:-->                     <jsc:socialMedias>                        <!--Zero or more repetitions:-->                        <jsc:socialMedia>                           <!--Optional:-->                           <jsc:smId>?</jsc:smId>                           <!--Optional:-->                           <jsc:customerId>?</jsc:customerId>                           <!--Optional:-->                           <jsc:smUserId>?</jsc:smUserId>                           <!--Optional:-->                           <jsc:smChannelName>?</jsc:smChannelName>                           <!--Optional:-->                           <jsc:smInterestFlag>?</jsc:smInterestFlag>                           <!--Optional:-->                           <jsc:createdDate>?</jsc:createdDate>                           <!--Optional:-->                           <jsc:createdBy>?</jsc:createdBy>                           <!--Optional:-->                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>                           <!--Optional:-->                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>                        </jsc:socialMedia>                     </jsc:socialMedias>                     <!--Optional:-->                     \r\n<jsc:marketingExclusions>                        <!--Zero or more repetitions:-->                        \r\n<jsc:marketingExclusion>                           <!--Optional:-->                           <jsc:mrktngPrefId>?</jsc:mrktngPrefId>                           <!--Optional:-->                           <jsc:customerId>?</jsc:customerId>                           <!--Optional:-->                           <jsc:mrktngCommnChannel>?</jsc:mrktngCommnChannel>                           <!--Optional:-->                           <jsc:mrktngExclunsFlag>?</jsc:mrktngExclunsFlag>                           <!--Optional:-->                           <jsc:createdDate>?</jsc:createdDate>                           <!--Optional:-->                           <jsc:createdBy>?</jsc:createdBy>                           <!--Optional:-->                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>                           <!--Optional:-->                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>                        \r\n</jsc:marketingExclusion>                 \r\n</jsc:marketingExclusions>\r\n</jsc:customer>\r\n</customers>\r\n</createRequest>\r\n</createCustomerRequest>\r\n</cre:createCustomerDetails>\r\n</soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/pegaCreateCustomerresource/pega_CreateCustomer",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"pegaCreateCustomerresource",
+						"pega_CreateCustomer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "J$oscar1",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "Js_Oscar",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e15b8681-cd6b-4e4f-aad1-f4d64cf786ca",
+				"type": "text/javascript",
+				"exec": [
+					"\"console.log(\\\"AUTOMATED API TESTING\\\")\";",
+					"\"const date = new Date()\";",
+					"\"console.log(\\\"Team: Application Integration Platform\\\")\";",
+					"\"console.log(\\\"API Name: PegaCustomerSearch\\\")\";",
+					"\"console.log(\\\"Environment: SIT\\\")\";",
+					"\"console.log(\\\"Current date:\\\",date)\";",
+					"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "acf60aee-ae1b-4d42-8501-e2e9beef9763",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

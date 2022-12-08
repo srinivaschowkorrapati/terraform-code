@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "00e2a9ee-fd88-4914-8174-bbd54a3ef6a9",
+		"name": "Sample API Test Case",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Executing Test Cases for Financial Calendar API.\")\r",
+							"\r",
+							"pm.test(\"ResponseCheck\",function() {\r",
+							"    console.log(\"Checking Status Code\");\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Checking Response type\");\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/FinancialCalendarresource/Js_Financial_Calendar_V01/2020-21",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"FinancialCalendarresource",
+						"Js_Financial_Calendar_V01",
+						"2020-21"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "retailapps_user",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "retailapps_user",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log(\"AUTOMATED API TESTING\")",
+					"const date = new Date()",
+					"console.log(\"Team: Application Integration Platform\")",
+					"console.log(\"API Name: JS Financial Calendar\")",
+					"console.log(\"Environment: SIT\")",
+					"console.log(\"Current date:\",date)",
+					"console.log(\"#----------------------------------------------------------#\")"
+				]	
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

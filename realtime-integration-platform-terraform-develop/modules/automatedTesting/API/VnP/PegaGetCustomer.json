@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "f005d9e0-a39a-4d21-87fb-40f87f5b0bc7",
+		"name": "PegaGetCustomer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetCustomer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "fa5da605-07e3-409c-be98-476ec9985693",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Pega get Customer\\\")\";\r",
+							"\"console.log(\\\"Environment: VNP\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c3d8e7a3-fa05-4166-bace-1303ba19fdb0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "J$oscar1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Js_Oscar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:get=\"http://stevux1219/Js_B2B_CustomerMgmt_Customer/provider/getCustomer\">\n<soap:Header/>\n<soap:Body>\n<get:getCustomerDetails>\n<customerGetRequest>\n<!--Optional:-->\n<getRequest>\n<mode>FULL</mode>\n<customerIds>\n<customerId>4774994</customerId>\n</customerIds>\n</getRequest>\n</customerGetRequest>\n</get:getCustomerDetails>\n</soap:Body>\n</soap:Envelope>"
+				},
+				"url": {
+					"raw": "https://api.vnp.iprm.js-devops.co.uk/pegaGetCustomerresource/GetCustomer",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vnp",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"pegaGetCustomerresource",
+						"GetCustomer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "8cd220b8-5c8f-464b-adc9-6667e11472f2",
+		"name": "PegaCreateEVoucher",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createEVoucher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d5d46baf-6907-43d2-ba2c-3585f19b3fcd",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Pega Create EVoucher\\\")\";\r",
+							"\"console.log(\\\"Environment: VNP\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b56b129b-7e97-4299-b43c-e56e0b5d8446",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "J$oscar1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Js_Oscar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:get=\"http://stevux1219/Js_B2B_CustomerMgmt_Customer/provider/createEVoucher\">\r\n<soap:Header/>\r\n<soap:Body>\r\n<eVoucher>\r\n<accountId>9547234</accountId>\r\n<amount>11.95</amount>\r\n<amountCurrency>GBP</amountCurrency>\r\n<expiryDate></expiryDate>\r\n</eVoucher>\r\n</soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.vnp.iprm.js-devops.co.uk/PegaCreateEVoucher/createEVoucher",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vnp",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"PegaCreateEVoucher",
+						"createEVoucher"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

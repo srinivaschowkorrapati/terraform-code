@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "e6cdefd7-9213-44a4-9ebf-2deb1e9a701b",
+		"name": "pegaGetProductSupplier",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getProductSupplier",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "574ec585-6042-401c-99a3-924aa6fb9b80",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Pega get Prod Supplier\\\")\";\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "75b2a8d7-88be-4e29-8caf-f8027c1bbd6d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "J$oscar1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Js_Oscar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:get=\"http://stevux1219/Js_B2B_CustomerMgmt_CIHA/provider/getProdSupplier\">\r\n<soap:Header/>\r\n<soap:Body>\r\n<get:getProdSupplierRequest>\r\n<!--Optional:-->\r\n<productSupplierReq>\r\n<productSKU>79</productSKU>\r\n<purchaseStoreNumber>2115</purchaseStoreNumber>\r\n<productPurchaseDate>2020-02-13</productPurchaseDate>\r\n<transactionId>TRA-202201-5596</transactionId>\r\n<requestingSystem>PEGA</requestingSystem>\r\n</productSupplierReq>\r\n</get:getProdSupplierRequest>\r\n</soap:Body>\r\n</soap:Envelope>"
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/PegaGetProductSupplier/getProductSupplier",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"PegaGetProductSupplier",
+						"getProductSupplier"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

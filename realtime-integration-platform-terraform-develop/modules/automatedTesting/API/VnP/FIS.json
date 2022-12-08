@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "656c8747-9597-4664-9a4a-9c493d8695c6",
+		"name": "FIS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "submitWorkflow",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\r",
+							"\"const date = new Date()\";\r",
+							"\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"API Name: FIS\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "W@!sGrave@2022",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "fis_servicenow",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sub=\"http://Js_ITSMOutbound_FIS/wsd/providers/submitWorkInfo\" xmlns:urn=\"urn:FIS_HPD_IncidentInterface_WorkInfo_WS\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <sub:submitWorkInfo>\r\n         <FIS_WorkInfo_Submit_Service>\r\n            <!--Optional:-->\r\n            <urn:FIS_WorkInfo_Submit_Service>\r\n               <urn:Incident_Number>INC4678690</urn:Incident_Number>\r\n               <urn:Vendor_Ticket_Number>IN21003882752</urn:Vendor_Ticket_Number>\r\n               <urn:Work_Info_Type>Detail Clarification</urn:Work_Info_Type>\r\n               <urn:Work_Info_Summary>Testing for FIS to JS</urn:Work_Info_Summary>\r\n               <urn:Work_Info_Notes>Testing for FIS to JS</urn:Work_Info_Notes>\r\n               <!--Optional:-->\r\n               <urn:Work_Info_Attachment_FileName>?</urn:Work_Info_Attachment_FileName>\r\n               <!--Optional:-->\r\n               <urn:Work_Info_Attachment_Data>cid:1395630583155</urn:Work_Info_Attachment_Data>\r\n               <!--Optional:-->\r\n               <urn:Work_Info_Attachment_FileSize>?</urn:Work_Info_Attachment_FileSize>\r\n               <urn:FIS_Action>?</urn:FIS_Action>\r\n            </urn:FIS_WorkInfo_Submit_Service>\r\n         </FIS_WorkInfo_Submit_Service>\r\n         <test>?</test>\r\n      </sub:submitWorkInfo>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>"
+				},
+				"url": {
+					"raw": "https://api.vnp.iprm.js-devops.co.uk/FIS/submitWorkflow",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vnp",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"FIS",
+						"submitWorkflow"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

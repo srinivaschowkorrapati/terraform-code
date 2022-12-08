@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "ed10cdf9-f57e-46b1-a6ef-c6751bc803ad",
+		"name": "OTGAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Heartbeat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "afdefcac-49c9-4960-aab0-1616deb1e22b",
+						"exec": [
+							"console.log(\"Executing Test Cases for OTG API.\")\r",
+							"\r",
+							"pm.test(\"ResponseCheck\",function() {\r",
+							"    console.log(\"Checking Status Code\");\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Checking Response type\");\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1bd6d6b7-84a6-48f1-a4cc-e2c1e2633a87",
+						"exec": [
+							"console.log(\"AUTOMATED API TESTING\")",
+							"const date = new Date()",
+							"console.log(\"Team: Application Integration Platform\")",
+							"console.log(\"API Name: OTG\")",
+							"console.log(\"Environment: VNP\")",
+							"console.log(\"Current date:\",date)",
+							"console.log(\"#----------------------------------------------------------#\")"
+
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "H0yl@k3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Hoylake_User",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"message_type\": \"Heartbeat\",\n\"reference_id\": \"SalesStoreHeartBeatV2_20211013_37_559_6232\",\n\"message_data\": \"<StoreHeartbeatResponse MinorVersion='0' MajorVersion='1' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://retalix.com/R10/services'> <StoreNumber>6232</StoreNumber><FinancialDate>2021-10-13</FinancialDate><CurrentSystemDate>2021-10-13T11:07:06</CurrentSystemDate> <FinancialEODDate>2021-10-13T22:00:00</FinancialEODDate><LatestTranscationDate>2021-10-13T11:07:06</LatestTranscationDate> <LastAccess>2021-10-13T11:07:06</LastAccess><FirstTransactionMainStore>2021-10-13T09:07:06</FirstTransactionMainStore> </StoreHeartbeatDetails></StoreHeartbeatResponse>\",\n\"financial_date\": \"20211013\"\n}"
+				},
+				"url": {
+					"raw": "https://api.vnp.iprm.js-devops.co.uk/SalesTransaction_Mgmt/Heartbeat",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vnp",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"SalesTransaction_Mgmt",
+						"Heartbeat"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

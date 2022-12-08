@@ -1,0 +1,245 @@
+name: 'SIT_Functional_Testing'
+
+on:
+  pull_request:
+    branches:
+    - VNP
+
+env:
+  AWS_REGION: eu-west-1
+        
+        
+jobs:
+  PreRequisite:
+    name: 'PreRequisite-Actions'
+    runs-on: [self-hosted, iprm-vnp]
+    environment: VNP
+
+    defaults:
+      run:
+        shell: bash
+
+    outputs:
+      API_Test_Flag: ${{ steps.API-Check.outputs.Test_Flag_API }}
+      API_Modules: ${{ steps.API-Check.outputs.API_Modules }}
+      AMQ_Test_Flag: ${{ steps.AMQ-Check.outputs.Test_Flag_AMQ }}
+      AMQ_Modules: ${{ steps.AMQ-Check.outputs.AMQ_Modules }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Extract Modules Changed
+      id: git-diff
+      run: |
+        git_diff=`git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | sort | uniq | sed ':a;N;$!ba;s/\n/%0A/g'`
+        echo "::set-output name=git_diff::${git_diff}"
+
+    - name: API Modules Diff Check
+      id: API-Check
+      run: |
+        if [ -z "$( echo "${{ steps.git-diff.outputs.git_diff }}" | grep modules/apigateway | cut -d'/' -f3 -s | sort | uniq | grep -v alb | grep -v lambda | sed ':a;N;$!ba;s/\n/%0A/g')" ];
+        then
+            echo "No API Module CHanges"
+            echo "::set-output name=Test_Flag_API::false"
+        else
+            API_modules_Changed=$( echo "${{ steps.git-diff.outputs.git_diff }}" | grep modules/apigateway | cut -d'/' -f3 -s | sort | uniq | grep -v alb | grep -v lambda | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::set-output name=API_Modules::${API_modules_Changed}"
+            echo "::set-output name=Test_Flag_API::true"
+        fi
+
+    - name: AMQ Modules Diff Check
+      id: AMQ-Check
+      run: |
+        if [ -z "$( echo "${{ steps.git-diff.outputs.git_diff }}" | grep modules/amq | cut -d'/' -f3 -s | sort | uniq | grep -v log_publishing_policy | sed ':a;N;$!ba;s/\n/%0A/g' )" ];
+        then
+            echo "No API Module CHanges"
+            echo "::set-output name=Test_Flag_AMQ::false"
+        else
+            AMQ_modules_Changed=$( echo "${{ steps.git-diff.outputs.git_diff }}" | grep modules/amq | cut -d'/' -f3 -s | sort | uniq | grep -v log_publishing_policy | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::set-output name=AMQ_Modules::${AMQ_modules_Changed}"
+            echo "::set-output name=Test_Flag_AMQ::true"
+        fi
+
+    - name: Summary
+      run: |
+        echo "File Modified for this PR: ${{ steps.git-diff.outputs.git_diff }}"
+        echo "API Modules Modified: ${{ steps.API-Check.outputs.API_Modules }}"
+        echo "API Test Required: ${{ steps.API-Check.outputs.Test_Flag_API }}"
+        echo "AMQ Modules Modified: ${{ steps.AMQ-Check.outputs.AMQ_Modules }}"
+        echo "AMQ Test Required: ${{ steps.AMQ-Check.outputs.Test_Flag_AMQ }}"
+
+
+  generate-matrix-api:
+    name: 'API-Matrix-Build-Actions'
+    runs-on: [self-hosted, iprm-vnp]
+    environment: VNP
+    needs: PreRequisite
+    if: needs.PreRequisite.outputs.API_Test_Flag == 'true'
+
+    defaults:
+      run:
+        shell: bash
+
+    outputs:
+      API_Test_Flag: ${{ needs.PreRequisite.outputs.API_Test_Flag }}
+      SIT_Test_API_Matrix: ${{ steps.api-matrix.outputs.api_test_files_json }}
+
+    steps:
+    - name: Generate API Matrix
+      id: api-matrix
+      run: |
+          api_modules="${{ needs.PreRequisite.outputs.API_Modules }}"
+          JSON="{\"include\":["
+          api_test_files=""
+          Automated_Test_root_Dir="modules/automatedTesting/API/SIT"
+          
+          # Read all the modified API modules
+          while read path; do
+            if [ "$path" == alb ]; then
+              continue # Exclude alb directory
+            elif [ "$path" == lambda ]; then
+              continue # Exclude lambda files
+            fi
+
+            module_test_file="${Automated_Test_root_Dir}/${path}.json"
+            JSONline="{\"test_file\": \"${module_test_file}\"},"
+            if [[ "$JSON" != *"$JSONline"* ]]; then
+              JSON="$JSON$JSONline"
+            fi
+
+            api_test_files=" $api_test_files$module_test_file,"
+          done <<< "${api_modules}"
+
+          # Remove last "," and add closing brackets
+          if [[ $JSON == *, ]]; then
+            JSON="${JSON%?}"
+          fi
+          JSON="$JSON]}"
+
+          #Remove last "," from Collection =
+          if [[ $api_test_files == *, ]]; then
+            api_test_files="${api_test_files%?}"
+          fi
+
+          #Set Output
+          echo "::set-output name=api_test_files::${api_test_files}"
+          echo "::set-output name=api_test_files_json::${JSON}"
+    
+    - name: Check Test Files Exists
+      id: check_files
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "${{ steps.api-matrix.outputs.api_test_files }}"
+
+    - name: File Do not Exist
+      if: steps.check_files.outputs.files_exists == 'false'
+      # Only runs if all of the files Dosen't exists
+      run: exit 1
+
+    - name: Summary
+      run: |
+        echo ${{ steps.api-matrix.outputs.api_test_files }}
+        echo ${{ steps.api-matrix.outputs.api_test_files_json }}
+  
+  
+  generate-matrix-amq:
+    name: 'AMQ-TestCases-Build-Actions'
+    runs-on: [self-hosted, iprm-vnp]
+    environment: VNP
+    needs: PreRequisite
+    if: needs.PreRequisite.outputs.AMQ_Test_Flag == 'true'
+    
+    defaults:
+      run:
+        shell: bash
+    
+    outputs:
+      AMQ_Test_Flag: ${{ needs.PreRequisite.outputs.AMQ_Test_Flag }}
+      SIT_Test_AMQ_Matrix: ${{ steps.amq-matrix.outputs.amq_Test_function_json }}
+
+    steps:
+    - name: Generate AMQ Matrix
+      id: amq-matrix
+      run: |
+          amq_modules="${{ needs.PreRequisite.outputs.AMQ_Modules }}"
+          amq_JSON="{\"include\":["
+
+          # Read all the modified API modules
+          while read path; do
+            if [ "$path" == log_publishing_policy ]; then
+              continue # Exclude log_publishing_policy directory
+            elif [ "$path" == r10_epos_mq ]; then
+              continue # Exclude lambda files
+            fi
+
+            JSONline="{\"function_name\": \"${path}\"},"
+            if [[ "$amq_JSON" != *"$JSONline"* ]]; then
+              amq_JSON="$amq_JSON$JSONline"
+            fi
+
+          done <<< "${amq_modules}"
+
+          # Remove last "," and add closing brackets
+          if [[ $amq_JSON == *, ]]; then
+            amq_JSON="${amq_JSON%?}"
+          fi
+          amq_JSON="$amq_JSON]}"
+
+          #Set Output
+          echo "::set-output name=amq_Test_function_json::${amq_JSON}"
+    
+    - name: Summary
+      run: |
+        echo ${{ steps.amq-matrix.outputs.amq_Test_function_json }}
+  
+  API-SIT-Testing:
+    name: 'API-SIT-Testi-Automation'
+    runs-on: [self-hosted, iprm-vnp]
+    environment: VNP
+    needs: generate-matrix-api
+    if: needs.generate-matrix-api.outputs.API_Test_Flag == 'true'
+    
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      matrix: ${{fromJson(needs.generate-matrix-api.outputs.SIT_Test_API_Matrix)}}
+
+    steps:
+    - name: Run API Tests
+      id: run-newman
+      uses: anthonyvscode/newman-action@v1
+      with:
+        collection: ${{ matrix.test_file }}
+        reporters: cli
+
+    - name: Output summary to console
+      run: echo ${{ steps.run-newman.outputs.summary }}
+
+  AMQ-SIT-Testing:
+    name: 'AMQ-SIT-Test-Automation'
+    runs-on: [self-hosted, iprm-vnp]
+    environment: VNP
+    needs: generate-matrix-amq
+    if: needs.generate-matrix-amq.outputs.AMQ_Test_Flag == 'true'
+    
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      matrix: ${{fromJson(needs.generate-matrix-amq.outputs.SIT_Test_AMQ_Matrix)}}
+
+    steps:
+    - name: Invoke AMQ Lambda Function
+      id: amqlambda
+      uses: gagoar/invoke-aws-lambda@master
+      with:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_NONPROD_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_NONPROD_ACCESS_KEY }}
+        FunctionName: ${{ matrix.function_name }}
+        REGION: eu-west-1
+
+    - name: Summary
+      run: |
+        echo ${{ fromJSON(steps.amqlambda.outputs.response).Payload }}

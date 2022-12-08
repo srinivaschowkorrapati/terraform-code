@@ -1,0 +1,8 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence, they will
+# be requested for review when someone opens a pull request.
+*       @sainsburys-tech/Integration-Platform-Realtime-Code-Reviewers
+
+# Focused users has to provide the approval for any changes in the github workflow
+# Can add more people if required. 
+.github/* @jsabiwPanneerselvam @PhaneendraBoyapati

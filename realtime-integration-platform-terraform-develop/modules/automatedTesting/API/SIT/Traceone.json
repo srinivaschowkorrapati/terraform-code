@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "985defc9-cd91-4600-aa87-69c9156a9ef1",
+		"name": "Traceone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TraceoneDealsandTerms",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\r",
+							"\"const date = new Date()\";\r",
+							"\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"API Name: TraceOne\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "TR0000",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "s$0001",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:cre=\"http://stevux1219/Js_B2B_PricePromoMgmt_TraceOne/wsd/provider/createFixedDealClaim\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <cre:processFixedDealClaimHandler>\r\n         <fixedDealClaimXML>&lt;?xml version=\"1.0\"?&gt;&lt;TraceOne:IntMsg xmlns:TraceOne=\"http://www.T1.com/IntegrationLite\"&gt;&lt;TraceOne:MsgID ID=\"44469\" DT=\"18/08/2021 11:48:32\" MsgType=\"FixedDealClaim\" UserKey=\"FDC - Claim: 41685_1 (Manager Approved)\" /&gt;&lt;TraceOne:SourceSystem FromSys=\"JS Deals ans Terms\" FromSysType=\"PRODUCTION\" /&gt;&lt;TraceOne:DestinationSystem ToSys=\"JS RMS\" ToUrl=\"https://WM912-prd.sainsburys.co.uk/ws/Js_B2B_PricePromoMgmt_TraceOne.wsd.provider:createFixedDealClaim/&amp;#xD;&amp;#xA;Js_B2B_PricePromoMgmt_TraceOne_wsd_provider_createFixedDealClaim_Port\" /&gt;&lt;TraceOne:Request&gt;&lt;FixedDealClaim Claim_SourceSystem=\"DT\" Claim_ID=\"41685_1\" Deal_ID=\"41685\" Deal_Type=\"Marketing Deal\" Deal_Start_Date=\"22Jul 2021\" Deal_End_Date=\"04 Aug 2021\" Deal_Description=\"8083041 - Ghosts, Adult Bay 1 &amp;amp; SS2\" Supplier_Code=\"161203\" Supplier_Name=\"Penguin UK\" Supplier_PO=\"KD1808\" Claim_Currency=\"GBP\" Claim_ExVat=\"4000.00\" Claim_BillingType=\"BD\" Claim_VatExempt=\"?\" OnlineChannel=\"N\" Dept=\"612\" Class_Store=\"824\" Class_Online=\"824\" /&gt;&lt;/TraceOne:Request&gt;&lt;/TraceOne:IntMsg&gt;</fixedDealClaimXML>\r\n      </cre:processFixedDealClaimHandler>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>"
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/Traceoneresource/TraceoneDealsandTerms",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"Traceoneresource",
+						"TraceoneDealsandTerms"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

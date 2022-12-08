@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "6f242112-6f53-4b7d-b819-d10d2f946319",
+		"name": "Hybris",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://api.sit.iprm.js-devops.co.uk/StockMgmt/shelf_returns",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "41b77941-cd19-4aec-a7cf-116a9193848b",
+						"exec": [
+							"console.log(\"AUTOMATED API TESTING\")",
+							"const date = new Date()",
+							"console.log(\"Team: Application Integration Platform\")",
+							"console.log(\"API Name: Hybris Stock Management\")",
+							"console.log(\"Environment: SIT\")",
+							"console.log(\"Current date:\",date)",
+							"console.log(\"#----------------------------------------------------------#\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "42c143de-453b-41f5-b882-22e64a6717e4",
+						"exec": [
+							"console.log(\"Executing Test Cases for Hybris API.\")\r",
+							"\r",
+							"pm.test(\"ResponseCheck\",function() {\r",
+							"    console.log(\"Checking Status Code\");\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+							"    console.log(\"Checking Response type\");\r",
+							"    pm.response.to.be.json;\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "Hybris",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Hiy4bi5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"references\": {\r\n        \"manual_asn_ref\": \"\",\r\n        \"order_id\": \"10173311\"\r\n    },\r\n    \"item_details\": [\r\n        {\r\n            \"reason_code\": \"4\",\r\n            \"quantity\": \"5\",\r\n            \"wm_transaction_type\": \"STOCK_ADJ_SHRINKAGE\",\r\n            \"unit_of_measure\": \"EA\",\r\n            \"reason_description\": \"Online Clothing Return to Shelf\",\r\n            \"sku\": \"129090588\"\r\n        },\r\n        {\r\n            \"reason_code\": \"4\",\r\n            \"quantity\": \"1\",\r\n            \"wm_transaction_type\": \"STOCK_ADJ_SHRINKAGE\",\r\n            \"unit_of_measure\": \"EA\",\r\n            \"reason_description\": \"Online Clothing Return to Shelf\",\r\n            \"sku\": \"127303965\"\r\n        }\r\n    ],\r\n    \"adjustment_details\": {\r\n        \"user_id\": \"HYBRIS\",\r\n        \"adjustment_date\": \"2021-10-13T11:45:33\"\r\n    },\r\n    \"location\": {\r\n        \"to_location\": \"\",\r\n        \"from_location\": \"2155\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/StockMgmt/shelf_returns",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"StockMgmt",
+						"shelf_returns"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

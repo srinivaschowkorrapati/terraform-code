@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "a11efbe6-4c06-46e0-b3c6-f2d176e90cfd",
+		"name": "pegaSearchCustomer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "searchCustomer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1e5b3551-5699-4471-acd3-9a1fbf2368e7",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Pega search Customer\\\")\";\r",
+							"\"console.log(\\\"Environment: VNP\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "514479db-7441-4db6-ba5f-a58c8620c13e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "J$oscar1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Js_Oscar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:sear=\"http://stevux1219/Js_B2B_CustomerMgmt_Customer/provider/searchCustomer\\\">\n\t<soap:Header/>\n\t<soap:Body>\n\t<sear:searchCustomerDetails>\n\t<customerSearchRequest>\n\t<searchRequest>\n\t<phoneNum></phoneNum>\n\t<postCode>IG3 8AY</postCode>\n\t<lastName>krish</lastName>\n\t<firstName></firstName>\n\t<emailAddress></emailAddress>\n\t<onlineAccountId></onlineAccountId>\n\t<nectarId></nectarId>\n\t<socialMediaId></socialMediaId>\n\t<onlineCustomerNum></onlineCustomerNum>\n\t<onlineUserName></onlineUserName>\n\t<onlineOrderNum></onlineOrderNum>\n\t<maxRows>1</maxRows>\n\t<customerType></customerType>\n\t</searchRequest>\n\t</customerSearchRequest>\n\t</sear:searchCustomerDetails>\n\t</soap:Body>\n\t</soap:Envelope>"
+				},
+				"url": {
+					"raw": "https://api.vnp.iprm.js-devops.co.uk/PegaSearchCustomer/searchCustomer",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vnp",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"PegaSearchCustomer",
+						"searchCustomer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

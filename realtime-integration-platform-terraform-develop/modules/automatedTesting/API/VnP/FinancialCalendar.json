@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "48721dc3-6b9f-47a9-9f8b-371e068729ab",
+		"name": "FinancialCalendar_VNP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Executing Test Cases for Financial Calendar API.\")\r",
+							"\r",
+							"pm.test(\"ResponseCheck\",function() {\r",
+							"    console.log(\"Test 1: Checking Status Code\");\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Test 2: Checking Response type\");\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Year-Name-Check\",function(){\r",
+							"    console.log(\"Test 3: Checking JSON year range is matching with API request year range\")\r",
+							"    const year_data=pm.response.json().financial_calendars.find(m=> m.year_name == \"2020-21\");\r",
+							"    pm.expect(year_data.year_name).to.eql(\"2020-21\");\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/FinancialCalendarresource/Js_Financial_Calendar_V01/2020-21",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"FinancialCalendarresource",
+						"Js_Financial_Calendar_V01",
+						"2020-21"
+					],
+					"query": [
+						{
+							"key": "param",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "retailapps_user",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "retailapps_user",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log(\"AUTOMATED API TESTING\")",
+					"const date = new Date()",
+					"console.log(\"Team: Application Integration Platform\")",
+					"console.log(\"API Name: JS Financial Calendar\")",
+					"console.log(\"Environment: SIT\")",
+					"console.log(\"Current date:\",date)",
+					"console.log(\"#----------------------------------------------------------#\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

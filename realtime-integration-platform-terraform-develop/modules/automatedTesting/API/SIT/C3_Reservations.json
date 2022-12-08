@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "9c76017a-808b-448f-b9be-14c2798996d8",
+		"name": "C3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://api.sit.iprm.js-devops.co.uk/C3_Reservations_Management/send_C3Bookings",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2c703642-cc31-4799-a9f9-cbd3b9158ac5",
+						"exec": [
+							"console.log(\"AUTOMATED API TESTING\")",
+							"const date = new Date()",
+							"console.log(\"Team: Application Integration Platform\")",
+							"console.log(\"API Name: C3 Reservations\")",
+							"console.log(\"Environment: SIT\")",
+							"console.log(\"Current date:\",date)",
+							"console.log(\"#----------------------------------------------------------#\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f22b452-f67d-417e-80b3-45ae59b117f9",
+						"exec": [
+							"console.log(\"Executing Test Cases for C3 Reservations API.\")\r",
+							"\r",
+							"pm.test(\"ResponseCheck\",function() {\r",
+							"    console.log(\"Checking Status Code\");\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "C3test123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "c30000",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://www.c3reservations.com/xml/integration\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <int:onReservationUpdate>\r\n         <Reservation>\r\n            <!--You may enter the following 27 items in any order-->\r\n            <int:referenceNumber>14436760</int:referenceNumber>\r\n            <!--Optional:-->\r\n            <int:externalReference>?</int:externalReference>\r\n            <!--Optional:-->\r\n            <int:barcodeNumber>14436760</int:barcodeNumber>\r\n            <!--Optional:-->\r\n            <int:comments>\r\n               <!--Zero or more repetitions:-->\r\n               <int:comment>\r\n                  <!--You may enter the following 3 items in any order-->\r\n                  <!--Optional:-->\r\n                  <int:user>?</int:user>\r\n                  <!--Optional:-->\r\n                  <int:date>?</int:date>\r\n                  <!--Optional:-->\r\n                  <int:comment>?</int:comment>\r\n               </int:comment>\r\n            </int:comments>\r\n            <!--Optional:-->\r\n            <int:carrier>\r\n               <!--You may enter the following 2 items in any order-->\r\n               <!--Optional:-->\r\n               <int:name>Kuehne and Nagel, Dartford</int:name>\r\n               <int:reference>KandNdart</int:reference>\r\n            </int:carrier>\r\n            <int:suppliers>\r\n               <!--1 or more repetitions:-->\r\n               <int:supplier>\r\n                  <!--You may enter the following 2 items in any order-->\r\n                  <!--Optional:-->\r\n                  <int:name>Bardinet</int:name>\r\n                  <int:reference>21669</int:reference>\r\n               </int:supplier>\r\n            </int:suppliers>\r\n            <int:duration>3600000</int:duration>\r\n            <int:requestedStartDate>2021-04-22T09:00:00+01:00</int:requestedStartDate>\r\n            <int:requestedEndDate>2021-04-22T09:00:00+01:00</int:requestedEndDate>\r\n            <!--Optional:-->\r\n            <int:requestedWarehouse>\r\n               <!--You may enter the following 2 items in any order-->\r\n               <!--Optional:-->\r\n               <int:name>V9</int:name>\r\n               <int:reference>9002-V9</int:reference>\r\n            </int:requestedWarehouse>\r\n            <!--Optional:-->\r\n            <int:scheduledDate>2021-04-22T09:00:00+01:00</int:scheduledDate>\r\n            <int:ownerReference>?</int:ownerReference>\r\n            <!--Optional:-->\r\n            <int:tags>\r\n               <!--Zero or more repetitions:-->\r\n               <int:tag>\r\n                  <!--You may enter the following 3 items in any order-->\r\n                  <!--Optional:-->\r\n                  <int:name>BWS Container</int:name>\r\n                  <!--Optional:-->\r\n                  <int:type>TRL_TYPE</int:type>\r\n                  <int:reference>BWS Container</int:reference>\r\n               </int:tag>\r\n            </int:tags>\r\n            <!--Optional:-->\r\n            <int:site>\r\n               <!--You may enter the following 2 items in any order-->\r\n               <!--Optional:-->\r\n               <int:name>Daventry</int:name>\r\n               <int:reference>9002</int:reference>\r\n            </int:site>\r\n            <!--Optional:-->\r\n            <int:warehouse>\r\n               <!--You may enter the following 2 items in any order-->\r\n               <!--Optional:-->\r\n               <int:name>V9</int:name>\r\n               <int:reference>9002-V9</int:reference>\r\n            </int:warehouse>\r\n            <!--Optional:-->\r\n            <int:unplanned>false</int:unplanned>\r\n            <!--Optional:-->\r\n            <int:callOffOrders>\r\n               <!--1 or more repetitions:-->\r\n               <int:callOffOrder>\r\n                  <!--You may enter the following 19 items in any order-->\r\n                  <int:purchaseOrderNumber>023736073</int:purchaseOrderNumber>\r\n                  <int:purchaseOrderLineNumber>0007856319000621669</int:purchaseOrderLineNumber>\r\n                  <int:supplier>\r\n                     <!--You may enter the following 2 items in any order-->\r\n                     <!--Optional:-->\r\n                     <int:name>Bardinet</int:name>\r\n                     <int:reference>21669</int:reference>\r\n                  </int:supplier>\r\n                  <int:quantity>1200</int:quantity>\r\n                  <!--Optional:-->\r\n                  <int:caseCount>1200</int:caseCount>\r\n                  <!--Optional:-->\r\n                  <int:palletCount>24</int:palletCount>\r\n                  <!--Optional:-->\r\n                  <int:volume>6.0</int:volume>\r\n                  <!--Optional:-->\r\n                  <int:weight>0.0</int:weight>\r\n                  <int:sku>\r\n                     <!--You may enter the following 3 items in any order-->\r\n                     <int:name>0007856319</int:name>\r\n                     <!--Optional:-->\r\n                     <int:description>DP HONEY LIQUEUR 70C</int:description>\r\n                     <!--Optional:-->\r\n                     <int:category>?</int:category>\r\n                  </int:sku>\r\n                  <!--Optional:-->\r\n                  <int:poCustomField1>230120</int:poCustomField1>\r\n                  <!--Optional:-->\r\n                  <int:poCustomField2>SSLDMS</int:poCustomField2>\r\n                  <!--Optional:-->\r\n                  <int:poCustomField3>BWS</int:poCustomField3>\r\n                  <!--Optional:-->\r\n                  <int:poCustomField4>?</int:poCustomField4>\r\n                  <!--Optional:-->\r\n                  <int:poCustomField5>?</int:poCustomField5>\r\n                  <!--Optional:-->\r\n                  <int:poLineCustomField1>?</int:poLineCustomField1>\r\n                  <!--Optional:-->\r\n                  <int:poLineCustomField2>21669</int:poLineCustomField2>\r\n                  <!--Optional:-->\r\n                  <int:poLineCustomField3>0024</int:poLineCustomField3>\r\n                  <!--Optional:-->\r\n                  <int:poLineCustomField4>0295</int:poLineCustomField4>\r\n                  <!--Optional:-->\r\n                  <int:poLineCustomField5>0001</int:poLineCustomField5>\r\n               </int:callOffOrder>\r\n            </int:callOffOrders>\r\n            <!--Optional:-->\r\n            <int:rsvnCustomField1>NSE</int:rsvnCustomField1>\r\n            <!--Optional:-->\r\n            <int:rsvnCustomField2>?</int:rsvnCustomField2>\r\n            <!--Optional:-->\r\n            <int:rsvnCustomField3>?</int:rsvnCustomField3>\r\n            <!--Optional:-->\r\n            <int:rsvnCustomField4>?</int:rsvnCustomField4>\r\n            <!--Optional:-->\r\n            <int:rsvnCustomField5>?</int:rsvnCustomField5>\r\n            <!--Optional:-->\r\n            <int:quantity>2840</int:quantity>\r\n            <!--Optional:-->\r\n            <int:caseCount>2840</int:caseCount>\r\n            <!--Optional:-->\r\n            <int:palletCount>24</int:palletCount>\r\n            <!--Optional:-->\r\n            <int:volume>78.0</int:volume>\r\n            <!--Optional:-->\r\n            <int:weight>0.0</int:weight>\r\n         </Reservation>\r\n      </int:onReservationUpdate>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>"
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/C3_Reservations_Management/send_C3Bookings",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"C3_Reservations_Management",
+						"send_C3Bookings"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "c5801ce0-ec05-4b16-8f46-a60ded6968b7",
+		"name": "pegaGetAddress",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAddress",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d04e3a9b-dd1c-4b29-8c78-adebb90968cb",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Pega get Address\\\")\";\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "045e35ba-9b08-4553-aa7c-e526c4485784",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "J$oscar1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Js_Oscar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:js=\"http://devtlnx0157.stbc2.jstest2.net/Js_Cmr_PEGA_CustomerMgmt.customerAddress.services.webservice.provider:GetAddress_WSD\">\r\n<soap:Header/>\r\n<soap:Body>\r\n<js:getAddressDetails>\r\n<postCodeLookupRequest>\r\n<!--Optional:-->\r\n<lookupRequest>\r\n<postCode>SE94DB</postCode>\r\n<!--Optional:-->\r\n<countryCode>GBR</countryCode>\r\n<!--Optional:-->\r\n<buildingNumber>?</buildingNumber>\r\n<offset>0</offset>\r\n<maxRow>10</maxRow>\r\n</lookupRequest>\r\n</postCodeLookupRequest>\r\n</js:getAddressDetails>\r\n</soap:Body>",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/PegaGetAddress/getAddress/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"PegaGetAddress",
+						"getAddress"
+						
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

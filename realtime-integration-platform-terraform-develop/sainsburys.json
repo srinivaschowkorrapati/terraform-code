@@ -1,0 +1,29 @@
+{
+    "schema-version": "1.0.0",
+    "services": [
+        {
+            "name": "iprm-terraform",
+            "type": "OTHER",
+            "description": "Integration Platform Realtime Terraform",
+            "tags": [
+                "Terraform"
+            ]
+        }
+    ],
+    "maintainers": [
+        {
+            "type": "TEAM",
+            "name": "Team Marvel and Team Storm Bringers",
+            "email": "TeamMarvel@sainsburys.co.uk,TeamStormBringers@sainsburys.co.uk"
+        }
+    ],
+    "owners": [
+        {
+            "type": "TEAM",
+            "name": "Team Marvel and Team Storm Bringers",
+            "email": "TeamMarvel@sainsburys.co.uk,TeamStormBringers@sainsburys.co.uk"
+        }
+    ],
+    "name": "Integration Platform Realtime Terraform",
+    "description": "Integration Platform Realtime Terraform Infrastructure as a Code"
+}

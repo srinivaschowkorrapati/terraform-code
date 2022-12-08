@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "00fe18f1-e30c-4515-89c0-f07a0997a87a",
+		"name": "Salesforce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createFixedDeal",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\r",
+							"\"const date = new Date()\";\r",
+							"\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"API Name: TraceOne\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "s$0001",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sf0000",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:int=\"http://www.jsdealcreation.com/xml/integration\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <int:fixedDealRequest>\r\n         <fixedDealXML>&lt;fixedDealXML xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"&gt;&lt;FixedDeal&gt;&lt;Eform_Id&gt;FDF-2022-02-74594&lt;/Eform_Id&gt;&lt;Supplier_Id&gt;180060&lt;/Supplier_Id&gt;&lt;DCP&gt;&lt;/DCP&gt;&lt;Currency&gt;GBP&lt;/Currency&gt;&lt;Vatable&gt;Y&lt;/Vatable&gt;&lt;Amount_Ex_Vat&gt;1755.12&lt;/Amount_Ex_Vat&gt;&lt;Amount_Inc_Vat&gt;2106.14&lt;/Amount_Inc_Vat&gt;&lt;Billing_Date&gt;2022-02-18&lt;/Billing_Date&gt;&lt;Billing_Type&gt;BC&lt;/Billing_Type&gt;&lt;Invoice_comments&gt;E45 500ml C16 Trigger Funding&lt;/Invoice_comments&gt;&lt;Additional_comments&gt;&lt;/Additional_comments&gt;&lt;Category&gt;Home &amp;amp; Personal Care&lt;/Category&gt;&lt;Buyer&gt;rachel.cooper@sainsburys.co.uk.eforms&lt;/Buyer&gt;&lt;CA&gt;pilar.mehmet@sainsburys.co.uk.eforms&lt;/CA&gt;&lt;Error_Detail&gt;&lt;/Error_Detail&gt;&lt;/FixedDeal&gt;&lt;FixedDealDetails&gt;&lt;SKU_No&gt;2701981&lt;/SKU_No&gt;&lt;Error_Detail&gt;&lt;/Error_Detail&gt;&lt;/FixedDealDetails&gt;&lt;ResponseDetails&gt;&lt;Status_Code&gt;&lt;/Status_Code&gt;&lt;Status_Msg&gt;&lt;/Status_Msg&gt;&lt;/ResponseDetails&gt;&lt;/fixedDealXML&gt;\r\n      </fixedDealXML>\r\n       </int:fixedDealRequest>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>"
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/salesforceDeal/createFixedDeal",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"salesforceDeal",
+						"createFixedDeal"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

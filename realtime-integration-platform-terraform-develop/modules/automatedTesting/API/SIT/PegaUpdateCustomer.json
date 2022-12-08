@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "6f4249d6-bc44-45bb-85d9-449448338af4",
+		"name": "PegaUpdateCustomer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "updateCustomer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "649e51d0-930e-4e53-ab88-98b1028140c8",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Pega update Customer\\\")\";\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d83af996-10b0-4193-8a5b-4a60ac58b367",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "J$oscar1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Js_Oscar",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:upd=\"http://stevux1219/Js_B2B_CustomerMgmt_Customer/provider/updateCustomer\" xmlns:jsc=\"http://www.sainsburys.co.uk/eai/canonical/uvc/JsCustomers\">\r\n   <soap:Header/>\r\n   <soap:Body>\r\n      <upd:updateCustomerDetails>\r\n         <customerUpdateRequest>\r\n            <updateRequest>\r\n               <customers>\r\n                  <!--Zero or more repetitions:-->\r\n                  <jsc:customer>\r\n                     <!--Optional:-->\r\n                     <jsc:customerId>1-1FKVM-1275</jsc:customerId>\r\n                     <!--Optional:-->\r\n                     <jsc:primaryAddressId>123</jsc:primaryAddressId>\r\n                     <!--Optional:-->\r\n                     <jsc:firstName>Asaf</jsc:firstName>\r\n                     <!--Optional:-->\r\n                     <jsc:middleName>Shachroor</jsc:middleName>\r\n                     <!--Optional:-->\r\n                     <jsc:lastName>Shachroor</jsc:lastName>\r\n                     <!--Optional:-->\r\n                     <jsc:gender>M</jsc:gender>\r\n                     <!--Optional:-->\r\n                     <jsc:birthDate>?</jsc:birthDate>\r\n                     <!--Optional:-->\r\n                     <jsc:title>?</jsc:title>\r\n                     <!--Optional:-->\r\n                     <jsc:titleSuffix>?</jsc:titleSuffix>\r\n                     <!--Optional:-->\r\n                     <jsc:primaryEmailAddress>asaf@coriolissuk.com</jsc:primaryEmailAddress>\r\n                     <!--Optional:-->\r\n                     <jsc:primaryEmailAddressId>1-1FL3R-1491</jsc:primaryEmailAddressId>\r\n                     <!--Optional:-->\r\n                     <jsc:prefCommChannel>?</jsc:prefCommChannel>\r\n                     <!--Optional:-->\r\n                     <jsc:isEmployee>?</jsc:isEmployee>\r\n                     <!--Optional:-->\r\n                     <jsc:status>?</jsc:status>\r\n                     <!--Optional:-->\r\n                     <jsc:workPhoneNum>?</jsc:workPhoneNum>\r\n                     <!--Optional:-->\r\n                     <jsc:homePhoneNum>?</jsc:homePhoneNum>\r\n                     <!--Optional:-->\r\n                     <jsc:mobilePhoneNum>07891038183</jsc:mobilePhoneNum>\r\n                     <!--Optional:-->\r\n                     <jsc:preferredPhoneType>MOBILE</jsc:preferredPhoneType>\r\n                     <!--Optional:-->\r\n                     <jsc:jobTitle>?</jsc:jobTitle>\r\n                     <!--Optional:-->\r\n                     <jsc:isDeceased>?</jsc:isDeceased>\r\n                     <!--Optional:-->\r\n                     <jsc:deceaseDate>?</jsc:deceaseDate>\r\n                     <!--Optional:-->\r\n                     <jsc:shoppingPreference>?</jsc:shoppingPreference>\r\n                     <!--Optional:-->\r\n                     <jsc:acceptSubstitute>Y</jsc:acceptSubstitute>\r\n                     <!--Optional:-->\r\n                     <jsc:isCustomer>?</jsc:isCustomer>\r\n                     <!--Optional:-->\r\n                     <jsc:custSource>?</jsc:custSource>\r\n                     <!--Optional:-->\r\n                     <jsc:edwId>?</jsc:edwId>\r\n                     <!--Optional:-->\r\n                     <jsc:edwCustStatus>?</jsc:edwCustStatus>\r\n                     <!--Optional:-->\r\n                     <jsc:createdDate>2022-02-15T16:09:33.361Z</jsc:createdDate>\r\n                     <!--Optional:-->\r\n                     <jsc:createdBy>BADMIN</jsc:createdBy>\r\n                     <!--Optional:-->\r\n                     <jsc:lastUpdatedDate>2022-02-15T16:09:33.361Z</jsc:lastUpdatedDate>\r\n                     <!--Optional:-->\r\n                     <jsc:lastUpdatedBy>jamal.baig</jsc:lastUpdatedBy>\r\n                     <!--Optional:-->\r\n                     <jsc:custStatusCode>?</jsc:custStatusCode>\r\n                     <!--Optional:-->\r\n                     <jsc:custStatusMsg>?</jsc:custStatusMsg>\r\n                     <!--Optional:-->\r\n                     <jsc:actionFlag>UPDATE</jsc:actionFlag>\r\n                     <!--Optional:-->\r\n                     <jsc:accounts>\r\n                        <!--Zero or more repetitions:-->\r\n                        <jsc:account>\r\n                           <!--Optional:-->\r\n                           <jsc:accountId>?</jsc:accountId>\r\n                           <!--Optional:-->\r\n                           <jsc:customerId>?</jsc:customerId>\r\n                           <!--Optional:-->\r\n                           <jsc:custAccMapId>?</jsc:custAccMapId>\r\n                           <!--Optional:-->\r\n                           <jsc:accountType>?</jsc:accountType>\r\n                           <!--Optional:-->\r\n                           <jsc:accountNum>?</jsc:accountNum>\r\n                           <!--Optional:-->\r\n                           <jsc:accountNumTrim>?</jsc:accountNumTrim>\r\n                           <!--Optional:-->\r\n                           <jsc:isActive>?</jsc:isActive>\r\n                           <!--Optional:-->\r\n                           <jsc:createdDate>?</jsc:createdDate>\r\n                           <!--Optional:-->\r\n                           <jsc:createdBy>?</jsc:createdBy>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>\r\n                           <!--Optional:-->\r\n                           <jsc:actionFlag>?</jsc:actionFlag>\r\n                        </jsc:account>\r\n                     </jsc:accounts>\r\n                     <!--Optional:-->\r\n                     <jsc:addresses>\r\n                        <!--Zero or more repetitions:-->\r\n                        <jsc:address>\r\n                           <!--Optional:-->\r\n                           <jsc:addressId>1-1FKVN-1275</jsc:addressId>\r\n                           <!--Optional:-->\r\n                           <jsc:customerId>1-1FKVN-1275</jsc:customerId>\r\n                           <!--Optional:-->\r\n                           <jsc:addressType>Home</jsc:addressType>\r\n                           <!--Optional:-->\r\n                           <jsc:flatNum>Suite 45</jsc:flatNum>\r\n                           <!--Optional:-->\r\n                           <jsc:houseNumber>95 Wilton Road</jsc:houseNumber>\r\n                           <!--Optional:-->\r\n                           <jsc:houseName>?</jsc:houseName>\r\n                           <!--Optional:-->\r\n                           <jsc:streetaddress>?</jsc:streetaddress>\r\n                           <!--Optional:-->\r\n                           <jsc:postCode>SW1V 1BZ</jsc:postCode>\r\n                           <!--Optional:-->\r\n                           <jsc:city>London</jsc:city>\r\n                           <!--Optional:-->\r\n                           <jsc:county>London</jsc:county>\r\n                           <!--Optional:-->\r\n                           <jsc:country>?</jsc:country>\r\n                           <!--Optional:-->\r\n                           <jsc:addressComments>?</jsc:addressComments>\r\n                           <!--Optional:-->\r\n                           <jsc:organisationName>?</jsc:organisationName>\r\n                           <!--Optional:-->\r\n                           <jsc:departmentName>?</jsc:departmentName>\r\n                           <!--Optional:-->\r\n                           <jsc:poBoxNumber>?</jsc:poBoxNumber>\r\n                           <!--Optional:-->\r\n                           <jsc:subStreet>?</jsc:subStreet>\r\n                           <!--Optional:-->\r\n                           <jsc:subLocality>?</jsc:subLocality>\r\n                           <!--Optional:-->\r\n                           <jsc:locality>?</jsc:locality>\r\n                           <!--Optional:-->\r\n                           <jsc:isPrimary>true</jsc:isPrimary>\r\n                           <!--Optional:-->\r\n                           <jsc:createdDate>?</jsc:createdDate>\r\n                           <!--Optional:-->\r\n                           <jsc:createdBy>?</jsc:createdBy>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedDate>2022-02-15T16:09:33.362Z</jsc:lastUpdatedDate>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedBy>jamal.baig</jsc:lastUpdatedBy>\r\n                           <!--Optional:-->\r\n                           <jsc:actionFlag>UPDATE</jsc:actionFlag>\r\n                        </jsc:address>\r\n                     </jsc:addresses>\r\n                     <!--Optional:-->\r\n                     <jsc:emailAddresses>\r\n                        <!--Zero or more repetitions:-->\r\n                        <jsc:emailAddresses>\r\n                           <!--Optional:-->\r\n                           <jsc:emailAddressId>?</jsc:emailAddressId>\r\n                           <!--Optional:-->\r\n                           <jsc:customerId>?</jsc:customerId>\r\n                           <!--Optional:-->\r\n                           <jsc:emailAddress>?</jsc:emailAddress>\r\n                           <!--Optional:-->\r\n                           <jsc:edwId>?</jsc:edwId>\r\n                           <!--Optional:-->\r\n                           <jsc:createdDate>?</jsc:createdDate>\r\n                           <!--Optional:-->\r\n                           <jsc:createdBy>?</jsc:createdBy>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>\r\n                           <!--Optional:-->\r\n                           <jsc:actionFlag>?</jsc:actionFlag>\r\n                        </jsc:emailAddresses>\r\n                     </jsc:emailAddresses>\r\n                     <!--Optional:-->\r\n                     <jsc:socialMedias>\r\n                        <!--Zero or more repetitions:-->\r\n                        <jsc:socialMedia>\r\n                           <!--Optional:-->\r\n                           <jsc:smId>?</jsc:smId>\r\n                           <!--Optional:-->\r\n                           <jsc:customerId>?</jsc:customerId>\r\n                           <!--Optional:-->\r\n                           <jsc:smUserId>?</jsc:smUserId>\r\n                           <!--Optional:-->\r\n                           <jsc:smChannelName>?</jsc:smChannelName>\r\n                           <!--Optional:-->\r\n                           <jsc:smInterestFlag>?</jsc:smInterestFlag>\r\n                           <!--Optional:-->\r\n                           <jsc:createdDate>?</jsc:createdDate>\r\n                           <!--Optional:-->\r\n                           <jsc:createdBy>?</jsc:createdBy>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>\r\n                           <!--Optional:-->\r\n                           <jsc:actionFlag>?</jsc:actionFlag>\r\n                        </jsc:socialMedia>\r\n                     </jsc:socialMedias>\r\n                     <!--Optional:-->\r\n                     <jsc:marketingExclusions>\r\n                        <!--Zero or more repetitions:-->\r\n                        <jsc:marketingExclusion>\r\n                           <!--Optional:-->\r\n                           <jsc:mrktngPrefId>?</jsc:mrktngPrefId>\r\n                           <!--Optional:-->\r\n                           <jsc:customerId>?</jsc:customerId>\r\n                           <!--Optional:-->\r\n                           <jsc:mrktngCommnChannel>?</jsc:mrktngCommnChannel>\r\n                           <!--Optional:-->\r\n                           <jsc:mrktngExclunsFlag>?</jsc:mrktngExclunsFlag>\r\n                           <!--Optional:-->\r\n                           <jsc:createdDate>?</jsc:createdDate>\r\n                           <!--Optional:-->\r\n                           <jsc:createdBy>?</jsc:createdBy>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedDate>?</jsc:lastUpdatedDate>\r\n                           <!--Optional:-->\r\n                           <jsc:lastUpdatedBy>?</jsc:lastUpdatedBy>\r\n                           <!--Optional:-->\r\n                           <jsc:actionFlag>?</jsc:actionFlag>\r\n                        </jsc:marketingExclusion>\r\n                     </jsc:marketingExclusions>\r\n                  </jsc:customer>\r\n               </customers>\r\n            </updateRequest>\r\n         </customerUpdateRequest>\r\n      </upd:updateCustomerDetails>\r\n   </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/PegaUpdateCustomer/updateCustomer",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"PegaUpdateCustomer",
+						"updateCustomer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

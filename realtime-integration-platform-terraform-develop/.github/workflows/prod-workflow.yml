@@ -1,0 +1,195 @@
+name: 'PROD - Terraform'
+
+on:
+  pull_request:
+    types: [ closed, opened, edited, reopened, synchronize ]
+    branches:
+    - main
+
+env:
+  AWS_REGION: eu-west-1
+  API_KEY: ${{ secrets.PROD_CHANGE_API_KEY }}
+  DEPLOYMENT_ITEM: AWS Infra (Integration)
+  ASSIGNMENT_GROUP: Integration
+  CHANGE_API_URL: ${{ secrets.PROD_CHANGE_API_URL}}
+  GIT_REPO_URL: https://github.com/sainsburys-tech/realtime-integration-platform-terraform
+  DEPLOY_BRANCH: main
+
+jobs:
+  CHECK_PR_TYPE:
+    name: 'CHECK PR TYPE'
+    runs-on: [self-hosted, iprm-prod]
+    environment: production
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+    
+    outputs:
+      PR_CLOSED: ${{ steps.check.outputs.continue }}
+
+    steps:
+    - name: Check PR Closed
+      id: check
+      run: |
+        if [[ ${{github.event.action }} == 'closed' && ${{ github.event.pull_request.merged }} == 'false' ]];
+        then
+           echo "continue=false" >> $GITHUB_OUTPUT
+        else
+           echo "continue=true" >> $GITHUB_OUTPUT
+        fi
+
+  Terraform_Prod:
+    name: 'Terraform - Prod'
+    runs-on: [self-hosted, iprm-prod]
+    environment: production
+    needs: CHECK_PR_TYPE
+    if: needs.CHECK_PR_TYPE.outputs.PR_CLOSED == 'true'
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
+      with:
+        terraform_version: 1.3.5
+        
+    # - name: Configure AWS credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-region: ${{ env.AWS_REGION }}
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check -recursive
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      id: init
+      run: terraform init
+      env:
+        TF_CLI_ARGS_init: '-backend-config="bucket=app-intg-platform-prod-tf-state"'
+    
+    # Validate runs checks that verify whether a configuration is syntactically valid and internally consistent, regardless of any provided variables or existing state.
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+    
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan on Prod
+      id: plan
+      #if: github.event_name == 'pull_request'
+      if: github.event.action != 'closed'
+      run: terraform plan -no-color -var-file=tfvars/prod/iprm-prod.tfvars
+      continue-on-error: true
+
+    - name: Summary
+      if: github.event.action != 'closed'
+      run : |
+        echo "Actor: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "Action: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "Head : ${{ github.event.pull_request.head.ref }}" >> $GITHUB_STEP_SUMMARY
+        echo "Base: ${{ github.event.pull_request.base.ref }}" >> $GITHUB_STEP_SUMMARY
+
+        echo "| :memo: Action | :interrobang: Status |" >> $GITHUB_STEP_SUMMARY
+        echo "| ---------- | ----------- |" >> $GITHUB_STEP_SUMMARY
+        echo "| Terraform Initialize | :heavy_check_mark: |" >> $GITHUB_STEP_SUMMARY
+        echo "| Terraform Initialize | :heavy_check_mark: |" >> $GITHUB_STEP_SUMMARY
+
+        if [ ${{ steps.plan.outcome }} == 'success' ]; then
+          echo "| Terraform Plan | :heavy_check_mark: |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| Terraform Plan | :x: |" >> $GITHUB_STEP_SUMMARY
+        fi
+    
+    # - name: Update Pull Request
+    #   uses: actions/github-script@0.9.0
+    #   #if: github.event_name == 'pull_request'
+    #   if: github.event.action != 'closed'
+    #   env:
+    #     #PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+    #     PLAN: "terraform\n${{ steps.plan.outputs.stderr }}"
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     script: |
+    #       const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+    #       #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+    #       #### Terraform Validation 🤖${{ steps.validate.outputs.stdout }}
+    #       #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+    #       <details> For Detailed Plan Go to Checks
+    #       <summary>Show Errors</summary>
+    #       \`\`\`${process.env.PLAN}\`\`\`
+    #       </details>
+    #       *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Head : \`${{ github.event.pull_request.head.ref }}\`, Base : \`${{ github.event.pull_request.base.ref }}\` , Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+    #       github.issues.createComment({
+    #         issue_number: context.issue.number,
+    #         owner: context.repo.owner,
+    #         repo: context.repo.repo,
+    #         body: output
+    #       })
+
+    # Additional Check in case the Terraform plan step Fails. Recommended by HashiCorp
+    #This is to counter continue-on-error: true property in terraform plan. 
+    - name: Check Terraform Plan Status
+      if: github.event.action != 'closed' && steps.plan.outcome == 'failure'
+      run: exit 1
+    
+    - name: Create RFC
+      id: createrfc
+      if: github.event.action == 'closed' && github.event.pull_request.merged == true
+      run: |
+          sudo apt-get install jq -y
+          source ./.github/scripts/change-api.sh
+          generate_change_log
+          echo "Adding the BASE_CHANGE_API_URL to GitHub Environment Variables..."
+          echo "BASE_CHANGE_API_URL=${BASE_CHANGE_API_URL}" >> $GITHUB_ENV
+          log_changes_for_deployment
+          echo "Adding the CHANGELOG to GitHub Environment Variables..."
+          echo "CHANGELOG=${CHANGELOG}" >> $GITHUB_ENV
+          generate_change_request
+          echo "Adding the CHANGE_RESOURCE to GitHub Environment Variables..."
+          echo "CHANGE_RESOURCE=${CHANGE_RESOURCE}" >> $GITHUB_ENV
+
+    # On push to main, build or change infrastructure according to Terraform configuration files
+    # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    - name: Terraform Apply - Prod
+      id: apply
+      if: github.event.action == 'closed' && github.event.pull_request.merged == true
+      run: terraform apply -auto-approve -var-file=tfvars/prod/iprm-prod.tfvars
+      continue-on-error: true
+    
+    - name: Notify RFC - Success
+      id: notifyrfcsuccess
+      env:
+        CHANGE_RESOURCE: ${{ env.CHANGE_RESOURCE }}
+        BASE_CHANGE_API_URL: ${{ env.BASE_CHANGE_API_URL }}
+        CHANGELOG: ${{ env.CHANGELOG }}
+      if: steps.createrfc.outcome == 'success' && steps.apply.outcome == 'success'
+      run: |
+        source ./.github/scripts/change-api.sh
+        deployment_successful_deployment
+
+    - name: Notify RFC - Fail
+      id: notifyrfcfail
+      env:
+        CHANGE_RESOURCE: ${{ env.CHANGE_RESOURCE }}
+        BASE_CHANGE_API_URL: ${{ env.BASE_CHANGE_API_URL }}
+        CHANGELOG: ${{ env.CHANGELOG }}
+      if: steps.createrfc.outcome == 'success' && steps.apply.outcome != 'success'
+      run: |
+        source ./.github/scripts/change-api.sh
+        fail
+    
+    - name: Check Apply Status
+      if: steps.apply.outcome == 'failure'
+      run: exit 1

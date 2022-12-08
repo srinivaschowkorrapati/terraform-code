@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "654776d0-422c-4ec2-838c-119dfe052ce0",
+		"name": "IncidentManagement_Telephonica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "telefonicaIncidentMgmt",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "52c1124a-272c-4bed-9162-707023a21a13",
+						"exec": [
+							"\"console.log(\\\"AUTOMATED API TESTING\\\")\";\r",
+							"\"const date = new Date()\";\r",
+							"\"console.log(\\\"Team: Application Integration Platform\\\")\";\r",
+							"\"console.log(\\\"API Name: Incident Management Telephonica\\\")\";\r",
+							"\"console.log(\\\"Environment: SIT\\\")\";\r",
+							"\"console.log(\\\"Current date:\\\",date)\";\r",
+							"\"console.log(\\\"#----------------------------------------------------------#\\\")\""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb53f594-0bb3-43d7-8709-70b668019156",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Gr9gpS9pNYvvAyK2",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Telefonica_User",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\"incident\": {\r\n\"u_number\": \"INC0472920\",\r\n\"u_location\": \"TESTSite001\",\r\n\"u_caller_id\": \"Andy Long\",\r\n\"u_category\": \"\",\r\n\"u_subcategory\": \"\",\r\n\"u_cmdb_ci\": \"\",\r\n\"u_business_service\": \"\",\r\n\"u_impacted_parties\": \"\",\r\n\"u_contact_type\": \"\",\r\n\"u_state\": \"\",\r\n\"u_vendor_reference\": \"INC0433696\",\r\n\"u_impact\": \"2\",\r\n\"u_urgency\": \"2\",\r\n\"u_assignment_group\": \"\",\r\n\"u_assigned_to\": \"\",\r\n\"u_short_description\": \"This is a test\",\r\n\"u_description\": \"This is a test\",\r\n\"u_work_notes\": \"\",\r\n\"u_comments\": \"This is a test update\",\r\n\"u_close_code\": \"\",\r\n\"u_closure_configuration_item\": \"\",\r\n\"u_close_notes\": \"\",\r\n\"u_pending_reason\": \"\",\r\n\"u_vendor\" : \"Telefonica\"\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sit.iprm.js-devops.co.uk/incidentManagement/telefonicaIncidentMgmt",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sit",
+						"iprm",
+						"js-devops",
+						"co",
+						"uk"
+					],
+					"path": [
+						"incidentManagement",
+						"telefonicaIncidentMgmt"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
